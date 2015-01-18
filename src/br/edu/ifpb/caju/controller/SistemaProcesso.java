@@ -19,9 +19,22 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 
 	private DAOProcesso dao;
 	private Processo processo = new Processo();
+	private List<Processo> processos;
 	
+	public SistemaProcesso() {
+		this.dao = new DAOProcesso();
+		getAllProcessos();
+		
+	}
 	
-	
+	public List<Processo> getProcessos() {
+		return processos;
+	}
+
+	public void setProcessos(List<Processo> processos) {
+		this.processos = processos;
+	}
+
 	public DAOProcesso getDao() {
 		return dao;
 	}
@@ -38,9 +51,7 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		this.processo = processo;
 	}
 
-	public SistemaProcesso() {
-		this.dao = new DAOProcesso();
-	}
+	
 	
 	@Override
 	public void cadastraProcesso() {
@@ -78,26 +89,34 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	}
 
 	@Override
-	public List<Processo> getAllProcessos() {
+	public void getAllProcessos() {
 		List<Processo> processos;
 		DAO.open();
 		DAO.begin();
 		processos = this.dao.findAll();
 		DAO.commit();
 		DAO.close();
-		return processos;
+		this.processos = processos;
 	}
 
 
 	@Override
-	public List<Processo> getProcessosByAtributes(HashMap<String, String> dados) {
+	public void getProcessosByAtributes(HashMap<String, String> dados) {
 		List<Processo> processos;
 		DAO.open();
 		DAO.begin();
 		processos = this.dao.findByAtributes((HashMap<String, String>) dados);
 		DAO.commit();
 		DAO.close();
-		return processos;
+		this.processos = processos;
+	}
+	
+	public void getProcessoPorProcesso(){
+		DAO.open();
+		DAO.begin();
+		processo = this.dao.find(processo);
+		DAO.commit();
+		DAO.close();
 	}
 
 }
