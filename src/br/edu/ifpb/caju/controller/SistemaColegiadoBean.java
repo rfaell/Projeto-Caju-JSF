@@ -26,8 +26,6 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 	private Colegiado colegiadoSelecionado;
 	
 
-	
-
 	public SistemaColegiadoBean() {
 		this.dao = new DAOColegiado();
 		colegiado = new Colegiado();
