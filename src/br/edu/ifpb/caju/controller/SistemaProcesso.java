@@ -3,15 +3,17 @@ package br.edu.ifpb.caju.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.edu.ifpb.caju.dao.DAO;
 import br.edu.ifpb.caju.dao.DAOProcesso;
 import br.edu.ifpb.caju.model.Processo;
 
 
-@ManagedBean (name ="processoBean")
+@ManagedBean (name ="sistemaProcesso")
 @ViewScoped
 public class SistemaProcesso implements SistemaProcessoInterface{
 
@@ -47,6 +49,11 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		this.dao.persist(processo);
 		DAO.commit();
 		DAO.close();
+		
+		FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Processo: Nº " + this.processo.getIdProcesso() + ". Cadastrado com Sucesso!"));
+		this.processo = new Processo();
+		
 		
 	}
 
