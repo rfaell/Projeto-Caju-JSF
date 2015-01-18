@@ -28,10 +28,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="JarsImportados/javax.faces-api-2.2.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MOJARRA"/>
+	<classpathentry kind="lib" path="JarsImportados/jsf-api-2.2.9.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
