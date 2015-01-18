@@ -30,5 +30,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MOJARRA"/>
 	<classpathentry kind="lib" path="JarsImportados/jsf-api-2.2.9.jar"/>
+	<classpathentry kind="lib" path="JarsImportados/jsf-impl-2.1.9.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
