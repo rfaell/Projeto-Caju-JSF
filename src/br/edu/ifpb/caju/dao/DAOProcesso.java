@@ -24,15 +24,7 @@ public class DAOProcesso extends DAO<Processo>{
 		}else{
 			q.setParameter("nomeRelator", "%");
 		}
-		
-		//TODO Precisa Ver como vai ser essa data
-		if(dados.containsKey("data")){
-			q.setParameter("data", "%");
-		}else{
-			q.setParameter("data", "%");
-		}
-		
-		
+				
 		return  q.getResultList();
 		
 	}

@@ -18,14 +18,16 @@ import br.edu.ifpb.caju.model.Processo;
 public class SistemaProcesso implements SistemaProcessoInterface{
 
 	private DAOProcesso dao;
-	private Processo processo = new Processo();
+	private Processo processo;
 	private List<Processo> processos;
 	
 	public SistemaProcesso() {
 		this.dao = new DAOProcesso();
-		getAllProcessos();
-		
+		processo = new Processo();
+        getAllProcessos();
 	}
+	
+	
 	
 	public List<Processo> getProcessos() {
 		return processos;
@@ -44,10 +46,12 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	}
 
 	public Processo getProcesso() {
+		
 		return processo;
 	}
 
 	public void setProcesso(Processo processo) {
+
 		this.processo = processo;
 	}
 
@@ -60,7 +64,7 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		this.dao.persist(processo);
 		DAO.commit();
 		DAO.close();
-		
+		getAllProcessos();
 		FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("Processo: Nº " + this.processo.getIdProcesso() + ". Cadastrado com Sucesso!"));
 		this.processo = new Processo();
@@ -72,9 +76,14 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	public void removeProcesso() {
 		DAO.open();
 		DAO.begin();
-		this.dao.remove(processo);
+		int valor = processo.getIdProcesso();
+		this.dao.remove(dao.merge(processo));
 		DAO.commit();
 		DAO.close();
+		getAllProcessos();
+		this.processo = new Processo();
+		FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Processo: Nº " + valor + ". Removido com Sucesso!"));
 		
 	}
 
@@ -89,7 +98,7 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	}
 
 	@Override
-	public void getAllProcessos() {
+	public List<Processo> getAllProcessos() {
 		List<Processo> processos;
 		DAO.open();
 		DAO.begin();
@@ -97,8 +106,10 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 		DAO.commit();
 		DAO.close();
 		this.processos = processos;
+		return this.processos;
 	}
-
+	
+	 
 
 	@Override
 	public void getProcessosByAtributes(HashMap<String, String> dados) {

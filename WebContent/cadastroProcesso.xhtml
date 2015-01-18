@@ -38,7 +38,7 @@
 				            <p:message for="idDoProcesso" />
 				            
 				            <p:outputLabel for="dataProcesso" value="Data do Processo:" />
-        					<p:calendar id="dataProcesso" value="#{sistemaProcesso.processo.dataDoc}" effect="fold" required="true"/>
+        					<p:calendar id="dataProcesso" value="#{sistemaProcesso.processo.dataDoc}" pattern="dd/MM/yyyy" effect="fold" required="true"/>
         					<p:message for="dataProcesso" />
         					
         					 <p:outputLabel for="periodo" value="Periodo Letivo do Processo:" />
