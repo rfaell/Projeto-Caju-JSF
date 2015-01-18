@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>Processos</title>
+	</h:head>
+	<h:body>
+	
+		 <p:dataList value="#{sistemaProcesso.processos}" var="processo" type="unordered" itemType="none" paginator="true" rows="20" styleClass="paginated">
+	       <f:facet name="header">
+	           Processos
+	       </f:facet>
+	       <p:commandLink update=":processoDetail" oncomplete="PF('processoDialog').show()" title="Detalhes do Processo" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
+	           <f:setPropertyActionListener value="#{processo}" target="#{sistemaProcesso.processo}" />
+	           <h:outputText value="#{processo.idProcesso} - #{processo.nomeRequerente}" />
+	       </p:commandLink>
+	       <h:outputText value="#{processo.idProcesso} - #{processo.nomeRequerente}" style="display:inline-block"/>
+	   </p:dataList>
+	   
+	   
+	   
+		<p:dialog header="Informações do Processo" widgetVar="processoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+	        <p:outputPanel id="processoDetail" style="text-align:center;">
+	            <p:panelGrid  columns="2" rendered="#{not empty sistemaProcesso.processo}" columnClasses="label,value">
+	                <f:facet name="header">
+	                    <p:graphicImage name="image/doc.png"/> 
+	                </f:facet>
+	 
+	                <h:outputText value="Id do Processo:" />
+	                <h:outputText value="#{processo.idProcesso}" />
+	 
+	                <h:outputText value="Matricula do Requerente:" />
+	                <h:outputText value="#{processo.matRequerente}" />
+	 
+	                <h:outputText value="Nome do Requerente:" />
+	                <h:outputText value="#{processo.nomeRequerente}"/>
+	 
+	                <h:outputText value="Data do Processo:" />
+	                <h:outputText value="$#{processo.dataDoc}" />
+	                
+	                <h:outputText value="Periodo Letivo: " />
+	                <h:outputText value="$#{processo.periodo}" />
+	                
+	                <h:outputText value="Assunto:" />
+	                <h:outputText value="$#{processo.assunto}" />
+	                
+	            </p:panelGrid>
+	        </p:outputPanel>
+	   	</p:dialog>
+    
+    
+    
+	</h:body>
+</html>
