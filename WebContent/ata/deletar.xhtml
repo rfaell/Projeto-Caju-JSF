@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form>
+		<h:outputText value="Deseja realmente excluir a Ata: #{ataBean.ata.id} "></h:outputText>
+		<br />
+		<h:commandButton value="Sim" action="#{ataBean.excluirAta}"></h:commandButton>
+		&nbsp;
+		<h:commandButton value="Não" action="lista_ata"></h:commandButton>
+	</h:form>
+</h:body>
+</html>

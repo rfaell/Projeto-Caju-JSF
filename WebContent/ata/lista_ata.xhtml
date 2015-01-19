@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+<h:form>
+	<h:commandLink action="add_ata" value="Nova ata" actionListener="#{ataBean.novo}"></h:commandLink>
+	<h:dataTable value="#{ataBean.atas}" var="dados">
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Código"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{dados.id}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Texto</f:facet>
+			<h:outputText value="#{dados.texto}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Ações</f:facet>			
+			<h:commandButton value="Editar" action="editar_ata" actionListener="#{ataBean.selecionarAta}"></h:commandButton>
+			&nbsp;
+			<h:commandButton value="Excluir" action="deletar" actionListener="#{ataBean.selecionarAta}"></h:commandButton>
+			
+	
+		</h:column>
+	</h:dataTable>
+	
+</h:form>
+</h:body>
+</html>

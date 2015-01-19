@@ -28,9 +28,6 @@ public class Ata {
 	}
 
 
-
-
-
 	public Ata(String texto){
 		this.texto = texto;
 	}
