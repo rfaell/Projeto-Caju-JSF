@@ -7,8 +7,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.primefaces.context.RequestContext;
-
 import br.edu.ifpb.caju.dao.DAO;
 import br.edu.ifpb.caju.dao.DAOColegiado;
 import br.edu.ifpb.caju.model.Colegiado;
@@ -23,19 +21,17 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 	private List<Colegiado> colegiados = new ArrayList<Colegiado>();
 	private List<Reuniao> reunioes = new ArrayList<Reuniao>();
 	private List<Membro> membros = new ArrayList<Membro>();
-	private Colegiado colegiadoSelecionado;
-	
-
+	private Colegiado colegiadoSelecionado = new Colegiado();
 	
 
 	public SistemaColegiadoBean() {
 		this.dao = new DAOColegiado();
 		colegiado = new Colegiado();
-		colegiadoSelecionado = new Colegiado();
 	}
 	
 	@Override
 	public void cadastraColegiado() {
+		colegiado = new Colegiado();
 		colegiado.setDataIni(new Date());
 		colegiado.setAtivo(true);
 		DAO.open();
@@ -68,16 +64,6 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 
 	}
 	
-	public void handload(Colegiado colegiado){
-		DAO.open();
-		DAO.begin();
-		this.colegiado = this.dao.findById(colegiado.getId());
-		DAO.commit();
-		DAO.close();
-		RequestContext.getCurrentInstance().execute("editDialog.show();");
-
-	}
-
 	@Override
 	public List<Colegiado> getAllColegiado() {
 		DAO.open();
