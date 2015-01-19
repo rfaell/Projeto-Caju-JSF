@@ -64,6 +64,9 @@
 		</div>
 		<div>
 			<p:commandButton value="Alterar" id="btEditar" actionListener="#{colegiadoBean.editaColegiado}" styleClass="ui-priority-primary" />
+			<p:link outcome="membroColegiado" value="Bookmark">
+			    <f:param name="colegiado" value="#{colegiadoBean.colegiadoSelecionado}" />
+			</p:link>
 		</div>
 		</p:dialog>
 	

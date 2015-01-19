@@ -5,42 +5,79 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<title>Insert title here</title>
-	</h:head>
-	
-	<h:body>
-		<h:form id="form">
-		    <p:panel id="panel" header="Cadastro" style="margin-bottom:10px;">
-		        <p:messages id="messages" />
-		        <h:panelGrid columns="3" cellpadding="5">
-		            
-		            <p:outputLabel for="dtAgendamento" value="Data do Agendamento:" />
-        			<p:calendar id="dtAgendamento" value="#{sistemaReuniao.reuniao.dataAgenda}" showOn="button" />
-        			<br/>
-        			<p:outputLabel for="dtReuniao" value="Data da Reunião:" />
-        			<p:calendar id="dtReuniao" value="#{sistemaReuniao.reuniao.dataReuniao}" showOn="button" />
-		            <br/>
-		            
-    
-		           
-		        </h:panelGrid>
-		    </p:panel>
-		 
-		    <p:toolbar>
-		        <f:facet name="left">
-		            <p:commandButton value="Submit" update="panel" actionListener="#{sistemaReuniao.cadastraReuniao}" style="margin-right:20px;" />
-		        </f:facet>
-		 
-		        <f:facet name="right">
-		            <p:commandButton value="Reset" update="panel" process="@this" style="margin-right:20px;" >
-		                <p:resetInput target="panel" />
-		            </p:commandButton>
-		        </f:facet>
-		    </p:toolbar>
-		</h:form>
-	</h:body>
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastrar Reunião</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		
+			<p:messages id="messages" />
+			<h:panelGrid columns="3" cellpadding="5">
+
+				<p:outputLabel for="dtAgendamento" value="Data do Agendamento:" />
+				<p:calendar id="dtAgendamento"
+					value="#{reuniaoBean.reuniao.dataAgenda}" showOn="button" />
+				<br />
+				<p:outputLabel for="dtReuniao" value="Data da Reunião:" />
+				<p:calendar id="dtReuniao"
+					value="#{reuniaoBean.reuniao.dataReuniao}" showOn="button" />
+				<br />
+			</h:panelGrid>
+
+			<p:messages id="messages_pauta" />
+			<h:panelGrid columns="6" cellpadding="5">
+				<p:outputLabel for="textoPauta" value="Pauta da Reunião:" />
+				<p:inputTextarea rows="10" cols="50" id="textoPauta"
+					value="#{reuniaoBean.reuniao.pauta}" required="true"
+					requiredMessage="Campo de Preenchimento Obrigatório" label="Texto"
+					queryDelay="750" minQueryLength="4">
+					<f:validateLength minimum="2" />
+				</p:inputTextarea>
+				<p:message for="textoPauta" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="3" cellpadding="5">
+				<h:outputLabel for="menu" value="Membros:" />
+				<p:selectCheckboxMenu id="menu"
+					value="#{reuniaoBean.membrosSelecionados}" label="Membros"
+					filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+					<f:selectItems value="#{reuniaoBean.membros}" var="membro"
+						itemLabel="#{membro.nome}" itemValue="#{membro.nome}" />
+				</p:selectCheckboxMenu>
+				<p:commandLink value="Submit" update=":form:display" />
+			</h:panelGrid>
+
+			<p:outputPanel id="display"
+				style="width:250px;padding-left:5px;margin-top:10px">
+				<p:dataList value="#{reuniaoBean.membrosSelecionados}" var="membro"
+					emptyMessage="Nenhum Membro Selecionado">
+			            #{membro}
+			        </p:dataList>
+			</p:outputPanel>
+
+
+
+		
+
+
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Cadastrar" update="panel"
+					actionListener="#{reuniaoBean.cadastraReuniao}"
+					style="margin-right:20px;" />
+			</f:facet>
+
+<!-- 			<f:facet name="right"> -->
+<!-- 				<p:commandButton value="Limpar" update="panel" process="@this" -->
+<!-- 					style="margin-right:20px;"> -->
+<!-- 					<p:resetInput target="panel" /> -->
+<!-- 				</p:commandButton> -->
+<!-- 			</f:facet> -->
+		</p:toolbar>
+	</h:form>
+</h:body>
 
 </html>

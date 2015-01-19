@@ -64,6 +64,21 @@ public class SistemaColegiadoBean implements SistemaColegiadoInterface {
 
 	}
 	
+	public void handload(){
+		/*DAO.open();
+		DAO.begin();
+		Colegiado colegiadoAux = this.dao.findById(colegiado.getId());
+		DAO.commit();
+		DAO.close();
+		colegiado.setDataIni(colegiadoAux.getDataIni());
+		colegiado.setDataFim(colegiadoAux.getDataFim());
+		colegiado.setId(colegiadoAux.getId());*/
+		//System.out.println(colegiadoSelecionado);
+		
+		
+
+	}
+
 	@Override
 	public List<Colegiado> getAllColegiado() {
 		DAO.open();

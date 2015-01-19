@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+<h:form>
+	<h:commandLink action="add_reuniao" value="Nova reuniao" actionListener="#{reuniaoBean.novo}"></h:commandLink>
+	<h:dataTable value="#{reuniaoBean.reunioes}" var="dados">
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Código"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{dados.id}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Data de Agendamento</f:facet>
+			<h:outputText value="#{dados.dataAgenda}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Data da Reunião</f:facet>
+			<h:outputText value="#{dados.dataReuniao}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Membros presentes</f:facet>
+			<h:outputText value="#{dados.membrosPresentes}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Pauta</f:facet>
+			<h:outputText value="#{dados.pauta}"></h:outputText>
+		</h:column>		
+		<h:column>
+			<f:facet name="header">Ata</f:facet>
+			<h:outputText value="#{dados.ata}"></h:outputText>
+		</h:column>		
+		<h:column>
+			<f:facet name="header">Processos</f:facet>
+			<h:outputText value="#{dados.parocessos}"></h:outputText>
+		</h:column>		
+		
+		<h:column>
+			<f:facet name="header">Ações</f:facet>			
+			<h:commandButton value="Editar" action="editar_reuniao" actionListener="#{reuniaoBean.selecionarReuniao}"></h:commandButton>
+			&nbsp;
+			<h:commandButton value="Excluir" action="deletar_reuniao" actionListener="#{reuniaoBean.selecionarReuniao}"></h:commandButton>
+			
+	
+		</h:column>
+	</h:dataTable>
+	
+</h:form>
+</h:body>
+</html>

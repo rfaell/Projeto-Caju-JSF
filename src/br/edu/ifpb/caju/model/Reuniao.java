@@ -24,7 +24,7 @@ public class Reuniao {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAgenda;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataReunicao;
+	private Date dataReuniao;
 	@ManyToMany
 	private List<Membro> membrosPresentes = new ArrayList<Membro>();
 	private String pauta;
@@ -62,11 +62,11 @@ public class Reuniao {
 	public void setDataAgenda(Date dataAgenda) {
 		this.dataAgenda = dataAgenda;
 	}
-	public Date getDataReunicao() {
-		return dataReunicao;
+	public Date getdataReuniao() {
+		return dataReuniao;
 	}
-	public void setDataReunicao(Date dataReunicao) {
-		this.dataReunicao = dataReunicao;
+	public void setdataReuniao(Date dataReuniao) {
+		this.dataReuniao = dataReuniao;
 	}
 
 	public void addMembrosPresentes(Membro membro){
