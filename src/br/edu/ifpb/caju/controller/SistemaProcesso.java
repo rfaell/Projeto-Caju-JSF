@@ -1,6 +1,5 @@
 package br.edu.ifpb.caju.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -20,15 +19,36 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	private DAOProcesso dao;
 	private Processo processo;
 	private List<Processo> processos;
+	private String busca;
+
 	
 	public SistemaProcesso() {
 		this.dao = new DAOProcesso();
 		processo = new Processo();
+		busca = "";
         getAllProcessos();
 	}
 	
-	
-	
+
+
+
+
+	public String getBusca() {
+		return busca;
+	}
+
+
+
+
+
+	public void setBusca(String busca) {
+		this.busca = busca;
+	}
+
+
+
+
+
 	public List<Processo> getProcessos() {
 		return processos;
 	}
@@ -61,29 +81,31 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	public void cadastraProcesso() {
 		DAO.open();
 		DAO.begin();
-		this.dao.persist(processo);
+		dao.merge(processo);
 		DAO.commit();
 		DAO.close();
 		getAllProcessos();
 		FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("Processo: Nº " + this.processo.getIdProcesso() + ". Cadastrado com Sucesso!"));
+                new FacesMessage("Processo: Nº " + this.processo.getIdProcesso() + ". Cadastrado/Atualizado com Sucesso!"));
 		this.processo = new Processo();
 		
 		
 	}
 
+
 	@Override
 	public void removeProcesso() {
 		DAO.open();
 		DAO.begin();
-		int valor = processo.getIdProcesso();
+		String valor = processo.getIdProcesso();
 		this.dao.remove(dao.merge(processo));
 		DAO.commit();
 		DAO.close();
 		getAllProcessos();
-		this.processo = new Processo();
+		
 		FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("Processo: Nº " + valor + ". Removido com Sucesso!"));
+		this.processo = new Processo();
 		
 	}
 
@@ -112,15 +134,17 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	 
 
 	@Override
-	public void getProcessosByAtributes(HashMap<String, String> dados) {
+	public void buscaProcessos() {
 		List<Processo> processos;
 		DAO.open();
 		DAO.begin();
-		processos = this.dao.findByAtributes((HashMap<String, String>) dados);
-		DAO.commit();
+		processos = this.dao.findByAtributes(busca);
 		DAO.close();
+		System.out.println("Buscando por:"+busca+" Qnt Resultados:"+processos.size());
 		this.processos = processos;
 	}
+	
+	
 	
 	public void getProcessoPorProcesso(){
 		DAO.open();

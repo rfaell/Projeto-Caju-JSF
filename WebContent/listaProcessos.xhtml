@@ -15,8 +15,12 @@
 		<h:form id="form1">
 				
 					<p:panel id="panel" header="Cadastro" style="margin-bottom:10px;">
+					
 					        <p:messages id="messages" />
 					        <h:panelGrid columns="3" cellpadding="5">
+					        <p:growl id="growl2" life="2000" />
+		               			
+		     
 					            <p:outputLabel for="nomeRequerenteProcesso" value="Nome do Requerente:" />
 					            <p:inputText placeHolder = "Nome do Requerente" id="nomeRequerenteProcesso" value="#{sistemaProcesso.processo.nomeRequerente}" required="true" >
 					                <f:validateLength minimum="2" />
@@ -25,19 +29,20 @@
 					            <p:message for="nomeRequerenteProcesso" />
 					            
 					            <p:outputLabel for="matriculaDoRequerente" value="Matricula do Requerente:" />
-					            <pe:inputNumber decimalPlaces="0" maxValue="99999999999" thousandSeparator = "" placeHolder="" id="matriculaDoRequerente" value="#{sistemaProcesso.processo.matRequerente}" required="true">
-					                <f:validateLength minimum="8" />
-					            </pe:inputNumber>       
-					            <p:message for="matriculaDoRequerente" />
+					            
+					            <p:inputMask mask = "9?9999999999" placeHolder = "" id="matriculaDoRequerente" value="#{sistemaProcesso.processo.matRequerente}" required="true" >
+					                <f:validateLength minimum="5" />
+					            </p:inputMask>
+								<p:message for="matriculaDoRequerente" />
 					            
 					            <p:outputLabel for="idDoProcesso" value="ID do Processo:" />
-					            <pe:inputNumber maxValue="99999999999999999999" decimalPlaces="0" thousandSeparator = "" placeHolder="" id="idDoProcesso" value="#{sistemaProcesso.processo.idProcesso}" required="true">
-					                
-					            </pe:inputNumber>       
+					            <p:inputMask mask = "9?999999999999999999" placeHolder = "" id="idDoProcesso" value="#{sistemaProcesso.processo.idProcesso}" required="true">
+					                <f:validateLength minimum="5" />
+					            </p:inputMask>       
 					            <p:message for="idDoProcesso" />
 					            
 					            <p:outputLabel for="dataProcesso" value="Data do Processo:" />
-	        					<p:calendar id="dataProcesso" value="#{sistemaProcesso.processo.dataDoc}" pattern="dd/MM/yyyy" effect="fold" required="true"/>
+	        					<p:calendar mask="9?9/99/9999" id="dataProcesso" value="#{sistemaProcesso.processo.dataDoc}" pattern="dd/MM/yyyy" effect="fold" required="true"/>
 	        					<p:message for="dataProcesso" />
 	        					
 	        					 <p:outputLabel for="periodo" value="Periodo Letivo do Processo:" />
@@ -49,12 +54,14 @@
 	        					<p:outputLabel for="assunto" value="Assunto:" />
 	        					<p:inputTextarea id="assunto" value = "${sistemaProcesso.processo.assunto}" placeHolder="Assunto" rows="6" cols="33" required="true"/>
 	        					<p:message for="assunto" />
+	        					<p:inputText style="visibility: hidden;" id="id" value="#{sistemaProcesso.processo.id}" required="false" />
 	         
 			   			
 						</h:panelGrid>
 					</p:panel>
 			    
 			        <p:toolbar>
+			        
 			        <f:facet name="left">
 			            <p:commandButton ajax="true" value="Cadastrar" update=":form:lista :form1:panel" actionListener="#{sistemaProcesso.cadastraProcesso}" style="margin-right:20px;" />
 			        </f:facet>
@@ -67,9 +74,16 @@
 	    
 	    
 		<h:form id="form">
-		
+			<p:growl id="growl" life="2000" />
 			
-		    <p:growl id="growl" life="2000" />
+			<br/>
+			 <p:outputLabel for="buscar" value="Buscar:" />
+             <p:inputText placeHolder = "Buscar" id="buscar" value="#{sistemaProcesso.busca}" required="false" />
+             <p:commandButton value="Pesquisar" ajax="false" update=":form:lista" actionListener="#{sistemaProcesso.buscaProcessos}" styleClass="ui-priority-primary" />
+           
+            
+            
+		    
 		    
 			 <p:dataList id= "lista" value="#{sistemaProcesso.processos}" var="pross" type="unordered" itemType="none" paginator="true" rows="20" styleClass="paginated">
 		       <f:facet name="header">
@@ -86,6 +100,12 @@
 			        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			    </p:confirmDialog>
 		       
+		       
+		        <p:commandButton ajax="true" process="@this" update = ":form1:panel"  icon="ui-icon ui-icon-pencil" title="Editar Processo">
+		       		<f:setPropertyActionListener value="#{pross}" target="#{sistemaProcesso.processo}"/>
+		       		<f:setPropertyActionListener value="#{pross.id}" target="#{sistemaProcesso.processo.id}"/>
+		       
+		       </p:commandButton>
 		     
 		 
 		       <p:commandLink update=":form:processoDetail" oncomplete="PF('processoDialog').show()" title="Detalhes do Processo" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
@@ -124,6 +144,8 @@
 		                
 		                <h:outputText value="Assunto:" />
 		                <h:outputText value="#{sistemaProcesso.processo.assunto}" />
+		                
+		                 
 		                                
 			           	              	                
 		            </p:panelGrid>

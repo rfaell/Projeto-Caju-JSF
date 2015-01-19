@@ -1,21 +1,26 @@
 package br.edu.ifpb.caju.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Processo {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int idProcesso;
-	private int matRequerente;
+	private String idProcesso;
+	private String matRequerente;
 	private String nomeRequerente;
-	private String dataDoc;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataDoc;
 	private String assunto;
 	private String periodo;
 	@ManyToOne
@@ -65,19 +70,19 @@ public class Processo {
 
 
 
-	public int getIdProcesso() {
+	public String getIdProcesso() {
 		return idProcesso;
 	}
 
-	public void setIdProcesso(int idProcesso) {
+	public void setIdProcesso(String idProcesso) {
 		this.idProcesso = idProcesso;
 	}
 
-	public int getMatRequerente() {
+	public String getMatRequerente() {
 		return matRequerente;
 	}
 
-	public void setMatRequerente(int matRequerente) {
+	public void setMatRequerente(String matRequerente) {
 		this.matRequerente = matRequerente;
 	}
 
@@ -89,13 +94,12 @@ public class Processo {
 		this.nomeRequerente = nomeRequerente;
 	}
 
-	public String getDataDoc() {
+	public Date getDataDoc() {
 		return dataDoc;
 	}
 
-	public void setDataDoc(String dataDoc) {
-		String[] quebra = dataDoc.split(" ");
-		this.dataDoc = String.format("%s/%s/%s", quebra[2], quebra[1], quebra[quebra.length-1]);
+	public void setDataDoc(Date dataDoc) {
+		this.dataDoc = dataDoc;
 	}
 
 	public String getAssunto() {
