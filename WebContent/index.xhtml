@@ -5,6 +5,10 @@
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
+	  <h:outputStylesheet name="css/bootstrap.min.css" />
+      <h:outputStylesheet name="css/bootstrap-theme.min.css"/> 
+      <h:outputScript name="js/jquery-2.1.3.min.js" />
+      <h:outputScript name="js/bootstrap.js" />
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 		<title>Insert title here</title>
@@ -15,69 +19,120 @@
 		</style>
 	</h:head>
 	<h:body>
-<!-- 		<p:link value="Bookmark"> -->
-<!-- 		    <f:param name="productId" value="10" /> -->
-<!-- 		</p:link> -->
+
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">C . A . J . U</a>
+	    </div>
 	
-		<p:tabMenu activeIndex="#{param.i}">
-			    <p:menuitem value="Inicio" outcome="index">
-			        <f:param name="i" value="0" />
-			    </p:menuitem>
-			    <p:menuitem value="Cadastar Membro" outcome="add_membro">
-        			<f:param name="i" value="1" />
-    			</p:menuitem>
-		</p:tabMenu>
-		 <p:panel id="basic" header="Membros Registrados" footer="@IFPB" style="margin-bottom:20px">
-		<h:form id="formListagem">
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        
+<!-- 	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
+	        
+	        <li><a href="#">Link</a></li>
+	        
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Membros <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><a href="index.xhtml">Listar</a></li>
+	            <li><a href="add_membro.xhtml">Cadastrar</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+	      
+<!-- 	      <ul class="nav navbar-nav navbar-right"> -->
+<!-- 	        <li><a href="#">Link</a></li> -->
+<!-- 	        <li class="dropdown"> -->
+<!-- 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
+<!-- 	          <ul class="dropdown-menu" role="menu"> -->
+<!-- 	            <li><a href="#">Action</a></li> -->
+<!-- 	            <li><a href="#">Another action</a></li> -->
+<!-- 	            <li><a href="#">Something else here</a></li> -->
+<!-- 	            <li class="divider"></li> -->
+<!-- 	            <li><a href="#">Separated link</a></li> -->
+<!-- 	          </ul> -->
+<!-- 	        </li> -->
+<!-- 	      </ul> -->
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+  
+  <div class="container">
+		<!-- 		<p:tabMenu activeIndex="#{param.i}"> -->
+		<!-- 			    <p:menuitem value="Inicio" outcome="index"> -->
+		<!-- 			        <f:param name="i" value="0" /> -->
+		<!-- 			    </p:menuitem> -->
+		<!-- 			    <p:menuitem value="Cadastar Membro" outcome="add_membro"> -->
+		<!--         			<f:param name="i" value="1" /> -->
+		<!--     			</p:menuitem> -->
+		<!-- 		</p:tabMenu> -->
+				 <p:panel id="basic" header="Membros Registrados"  footer="@IFPB" style="margin-bottom:20px">
+				<h:form id="formListagem">
+				
+					 <p:dataTable id="membrosListagem" tableStyleClass="table table-hover table-striped table-condensed" var="membro" value="#{sistemaMembro.allMembros}" rows="10" sortOrder="descending"
+		                         paginator="true"
+		                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15">
+				        
+				        <p:column headerText="Nome" >
+				            <h:outputText value="#{membro.nome}" />
+				        </p:column>
+				        
+				        <p:column headerText="Perfil">
+				            <h:outputText value="#{membro.perfil}" />
+				        </p:column>
+				        
+				        <p:column headerText="Email">
+				            <h:outputText value="#{membro.email}" />
+				        </p:column>
+				        
+				        <p:column headerText="Telefone">
+				            <h:outputText value="#{membro.telefone}" />
+				        </p:column>
+				        
+				        <p:column headerText="Ativo">
+				            <h:outputText value="#{membro.ativo ? 'Sim' : 'Não'}" />
+				        </p:column>
+				        
+				        <p:column headerText="Ações">
+				        		
 		
-			 <p:dataTable id="membrosListagem" var="membro" value="#{sistemaMembro.allMembros}" rows="10" sortOrder="descending"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-		        
-<!-- 		        <p:column headerText="Id" sortBy="#{membro.id}"> -->
-<!-- 		            <h:outputText value="#{membro.id}" /> -->
-<!-- 		        </p:column> -->
-		        
-		        <p:column headerText="Nome" >
-		            <h:outputText value="#{membro.nome}" />
-		        </p:column>
-		        
-		        <p:column headerText="Perfil">
-		            <h:outputText value="#{membro.perfil}" />
-		        </p:column>
-		        
-		        <p:column headerText="Email">
-		            <h:outputText value="#{membro.email}" />
-		        </p:column>
-		        
-		        <p:column headerText="Telefone">
-		            <h:outputText value="#{membro.telefone}" />
-		        </p:column>
-		        
-		        <p:column headerText="Ativo">
-		            <h:outputText value="#{membro.ativo ? 'Sim' : 'Não'}" />
-		        </p:column>
-		        
-		        <p:column headerText="Ações">
-		        		
-
-		        	
-		        	<h:commandLink action="#{sistemaMembro.editar}"  value="Editar">
-		       		
-		       		<f:setPropertyActionListener  target="#{sistemaMembro.membro}" value="#{membro}"/>
-		       		<f:setPropertyActionListener value="#{membro.id}" target="#{sistemaMembro.membro.id}"/>
-		       		<f:param name="id" value="#{membro.id}"/>
-			       
-			       </h:commandLink>
-		        	      
-		        </p:column>
-		        
-		    </p:dataTable>
-		    
-	    </h:form>
-	    </p:panel>
-
+				        	
+				        	<h:commandLink action="#{sistemaMembro.editar}" styleClass="btn btn-sm btn-default" value="Editar">
+				       		
+				       		<f:setPropertyActionListener  target="#{sistemaMembro.membro}" value="#{membro}"/>
+				       		<f:setPropertyActionListener value="#{membro.id}" target="#{sistemaMembro.membro.id}"/>
+				       		<f:param name="id" value="#{membro.id}"/>
+					       
+					       </h:commandLink>
+				        	      
+				        </p:column>
+				        
+				    </p:dataTable>
+				    
+			    </h:form>
+			    </p:panel>
+		</div>
+		<div class="footer bg-info" >
+		
+			<div class="container">
+				<p class="text-center">_________________________________</p>
+				<p class="text-center"> IFPB - C . A . J . U - 2014.2</p>
+				<p class="text-center">_________________________________</p>
+			</div>
+		
+		</div>
 	</h:body>
 </html>
 
