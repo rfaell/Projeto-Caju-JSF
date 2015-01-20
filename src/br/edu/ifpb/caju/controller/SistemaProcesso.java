@@ -8,7 +8,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.edu.ifpb.caju.dao.DAO;
+import br.edu.ifpb.caju.dao.DAOMembro;
 import br.edu.ifpb.caju.dao.DAOProcesso;
+import br.edu.ifpb.caju.model.Membro;
 import br.edu.ifpb.caju.model.Processo;
 
 
@@ -17,18 +19,66 @@ import br.edu.ifpb.caju.model.Processo;
 public class SistemaProcesso implements SistemaProcessoInterface{
 
 	private DAOProcesso dao;
+	private DAOMembro daoM;
 	private Processo processo;
 	private List<Processo> processos;
 	private String busca;
+	
+	private Membro membro;
+	private List<Membro> membros;
 
 	
 	public SistemaProcesso() {
 		this.dao = new DAOProcesso();
+		this.daoM = new DAOMembro();
 		processo = new Processo();
 		busca = "";
         getAllProcessos();
+        getAllMembros();
 	}
 	
+
+
+	public List<Membro> getAllMembros(){
+		List<Membro> membros;
+		DAO.open();
+		DAO.begin();
+		membros = this.daoM.findAllAtivos();
+		DAO.commit();
+		DAO.close();
+		this.membros = membros;
+		return this.membros;
+		
+	}
+
+	public Membro getMembro() {
+		return membro;
+	}
+
+
+
+
+
+	public void setMembro(Membro membro) {
+		this.membro = membro;
+	}
+
+
+
+
+
+	public List<Membro> getMembros() {
+		return membros;
+	}
+
+
+
+
+
+	public void setMembros(List<Membro> membros) {
+		this.membros = membros;
+	}
+
 
 
 
@@ -81,7 +131,9 @@ public class SistemaProcesso implements SistemaProcessoInterface{
 	public void cadastraProcesso() {
 		DAO.open();
 		DAO.begin();
+		membro.addProcesso(processo);
 		dao.merge(processo);
+		daoM.merge(membro);
 		DAO.commit();
 		DAO.close();
 		getAllProcessos();

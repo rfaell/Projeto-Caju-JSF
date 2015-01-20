@@ -25,11 +25,9 @@
 					            <p:inputText placeHolder = "Nome do Requerente" id="nomeRequerenteProcesso" value="#{sistemaProcesso.processo.nomeRequerente}" required="true" >
 					                <f:validateLength minimum="2" />
 					            </p:inputText>
-					            
 					            <p:message for="nomeRequerenteProcesso" />
 					            
 					            <p:outputLabel for="matriculaDoRequerente" value="Matricula do Requerente:" />
-					            
 					            <p:inputMask mask = "9?9999999999" placeHolder = "" id="matriculaDoRequerente" value="#{sistemaProcesso.processo.matRequerente}" required="true" >
 					                <f:validateLength minimum="5" />
 					            </p:inputMask>
@@ -54,8 +52,17 @@
 	        					<p:outputLabel for="assunto" value="Assunto:" />
 	        					<p:inputTextarea id="assunto" value = "${sistemaProcesso.processo.assunto}" placeHolder="Assunto" rows="6" cols="33" required="true"/>
 	        					<p:message for="assunto" />
-	        					<p:inputText style="visibility: hidden;" id="id" value="#{sistemaProcesso.processo.id}" required="false" />
-	         
+	        					
+	         					
+	         					<p:outputLabel for="membros" value="Membros:" />
+						        <p:selectOneMenu id="membros" value="#{sistemaProcesso.membro}">
+						            <f:selectItem itemLabel="Selecione o Relator" itemValue="" />
+						            <f:selectItems value="#{sistemaProcesso.membros}" />
+						        </p:selectOneMenu>
+						        <p:message for="membros" />
+						        
+						        <p:inputText style="visibility: hidden;" id="id" value="#{sistemaProcesso.processo.id}" required="false" />
+	        					
 			   			
 						</h:panelGrid>
 					</p:panel>

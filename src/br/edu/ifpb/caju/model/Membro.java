@@ -49,7 +49,7 @@ public class Membro {
 
 
 
-	private void addProcesso(Processo processo) {
+	public void addProcesso(Processo processo) {
 		processo.setRelator(this);
 		this.processos.add(processo);
 		
@@ -143,6 +143,13 @@ public class Membro {
 
 	public void setReunioes(List<Reuniao> reunioes) {
 		this.reunioes = reunioes;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return nome;
 	}
 	
 	
